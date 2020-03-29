@@ -11,12 +11,12 @@ class Course {
   }
 
   toJSON() {
-    return JSON.stringify({
+    return {
       title: this.title,
       price: this.price,
       img: this.img,
       id: this.id
-    });
+    };
   }
 
   async save() {
@@ -47,6 +47,7 @@ class Course {
           if (err) {
             reject(err);
           } else {
+            console.log(content);
             resolve(content ? JSON.parse(content) : []);
           }
         }
