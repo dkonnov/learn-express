@@ -1,0 +1,22 @@
+<h1>Редактровать курс {{course.title}}</h1>
+
+
+<form action="/courses/edit" method="post">
+    <div class="input-field">
+        <input id="title" name="title" type="text" class="validate" required value="{{course.title}}">
+        <label for="title">Название</label>
+        <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+    </div>
+    <div class="input-field">
+        <input id="price" name="id" type="number" class="validate" required min="100" value="{{course.price}}">
+        <label for="price">Цена</label>
+        <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+    </div>
+    <div class="input-field">
+        <input id="img" name="img" type="text" class="validate" value="{{course.img}}">
+        <label for="img">Картинка</label>
+        <span class="helper-text" data-error="wrong" data-success="right">Helper text</span>
+    </div>
+    <input type="hidden" name="id" value={{course.id}}>
+    <button class="btn btn-primary">Редактировать</button>
+</form>
