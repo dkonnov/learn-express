@@ -20,6 +20,7 @@ class Course {
   }
 
   static async update(course) {
+    console.log(course);
     const courses = await Course.getAll();
     const idx = courses.findIndex(c => c.id === course.id);
     courses[idx] = course;
@@ -54,7 +55,6 @@ class Course {
         }
       );
     });
-    console.log(courses);
   }
 
   static getAll() {
@@ -66,7 +66,6 @@ class Course {
           if (err) {
             reject(err);
           } else {
-            console.log(content);
             resolve(content ? JSON.parse(content) : []);
           }
         }
