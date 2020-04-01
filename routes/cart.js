@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     title: "Корзина",
     isAdd: true,
     courses: cart.courses,
-    proce: cart.proce
+    price: cart.price
   });
 });
 
