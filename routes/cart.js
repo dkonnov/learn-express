@@ -13,10 +13,16 @@ router.get("/", async (req, res) => {
   const cart = await Cart.fetch();
   res.render("cart", {
     title: "Корзина",
-    isAdd: true,
+    isCart: true,
     courses: cart.courses,
     price: cart.price
   });
+});
+
+router.delete("/remove/:id", async (req, res) => {
+  console.log(111);
+  const cart = await Cart.remove(req.params.id);
+  res.status(200).json(cart);
 });
 
 module.exports = router;
