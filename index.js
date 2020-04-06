@@ -10,7 +10,7 @@ const coursesRoutes = require("./routes/courses");
 
 const hbs = exphbs.create({
   defaultLayout: "main",
-  extname: "hbs"
+  extname: "hbs",
 });
 
 app.engine("hbs", hbs.engine);
@@ -29,10 +29,10 @@ const PORT = process.env.PORT || 3000;
 async function start() {
   try {
     const url =
-      "mongodb+srv://dmitry:lHltGHz3guDoWuCC@cluster0-gfhyj.mongodb.net/test?retryWrites=true&w=majority";
+      "mongodb+srv://dmitry:lHltGHz3guDoWuCC@cluster0-gfhyj.mongodb.net/shop";
     await mongoose.connect(url, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
     app.listen(PORT, () => {
       console.log(`Server is running in port ${PORT}`);
