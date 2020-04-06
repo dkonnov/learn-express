@@ -1,14 +1,12 @@
-const { Router } = require("express");
-const Cart = require("../models/cart");
-const router = Router();
+const {Router} = require('express')
+const router = Router()
 
-router.get("/", async (req, res) => {
-  const cart = await Cart.fetch();
-  res.render("index", {
-    title: "Главная страница",
-    coursesCount: cart.courses.length,
+router.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Главная страница',
     isHome: true
-  });
-});
+  })
+})
 
-module.exports = router;
+
+module.exports = router

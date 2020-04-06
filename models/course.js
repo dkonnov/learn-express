@@ -1,15 +1,15 @@
-const { Schema, model } = require("mongoose");
+const {Schema, model} = require('mongoose')
 
 const course = new Schema({
   title: {
     type: String,
-    required: true,
+    required: true
   },
   price: {
     type: Number,
-    required: true,
+    required: true
   },
-  img: String,
-});
+  img: String
+})
 
-module.exports = model("Course", course);
+module.exports = model('Course', course)
