@@ -11,18 +11,18 @@ const userSchama = new Schama({
   },
   card: {
     items: [
-        {
-            count: {
-                type: Number,
-                required: true
-                default: 1
-            }
-            courseId: {
-                type: Schema.Types.ObjectId
-                ref: 'Course'
-                required: true,
-            }
-        }
+      {
+        count: {
+          type: Number,
+          required: true,
+          default: 1,
+        },
+        courseId: {
+          type: Schema.Types.ObjectId,
+          ref: "Course",
+          required: true,
+        },
+      },
     ],
   },
 });
