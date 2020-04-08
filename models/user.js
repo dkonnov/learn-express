@@ -1,30 +1,30 @@
-const { Schema, model } = require("mongoose");
+const {Schema, model} = require('mongoose')
 
-const userSchama = new Schama({
+const userSchema = new Schema({
   email: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
-    name: String,
-    required: true,
+    type: String,
+    required: true
   },
-  card: {
+  cart: {
     items: [
       {
         count: {
           type: Number,
           required: true,
-          default: 1,
+          default: 1
         },
         courseId: {
           type: Schema.Types.ObjectId,
-          ref: "Course",
-          required: true,
-        },
-      },
-    ],
-  },
-});
+          ref: 'Course',
+          required: true
+        }
+      }
+    ]
+  }
+})
 
-module.exports = model("User", userSchema);
+module.exports = model('User', userSchema)
