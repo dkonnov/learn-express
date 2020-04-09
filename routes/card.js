@@ -13,13 +13,24 @@ router.delete("/remove/:id", async (req, res) => {
   res.status(200).json(card);
 });
 
+function mapCortItems(cart) {
+  return cart.items.map((c) => ({ ...c.courseId._doc, count: c.count }));
+}
+
+function computePrice(courses) {
+  return courses.reduce((total, course) => {
+    return (total += course.price * course.count);
+  }, 0);
+}
+
 router.get("/", async (req, res) => {
-  const card = await Card.fetch();
+  const user = await req.user.populate("cart.items.courseId").execPopulate();
+  const courses = mapCortItems(user.cart);
   res.render("card", {
     title: "Корзина",
     isCard: true,
-    courses: card.courses,
-    price: card.price,
+    courses: courses,
+    price: computePrice(courses),
   });
 });
 

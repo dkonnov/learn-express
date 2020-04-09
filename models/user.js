@@ -30,7 +30,7 @@ const userSchema = new Schema({
 userSchema.methods.addToCart = function (course) {
   const items = [...this.cart.items];
   const idx = items.findIndex((c) => {
-    return c.courseId.toStrind() === course._id.toString();
+    return c.courseId.toString() === course._id.toString();
   });
   if (idx >= 0) {
     items[idx].count++;
