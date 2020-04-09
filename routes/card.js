@@ -16,10 +16,15 @@ router.delete("/remove/:id", async (req, res) => {
     courses,
     price: computePrice(courses),
   };
+  res.status(200).json(cart);
 });
 
 function mapCartItems(cart) {
-  return cart.items.map((c) => ({ ...c.courseId._doc, count: c.count }));
+  return cart.items.map((c) => ({
+    ...c.courseId._doc,
+    id: c.courseId.id,
+    count: c.count,
+  }));
 }
 
 function computePrice(courses) {
