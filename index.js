@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
-
 const homeRoutes = require("./routes/home");
 const cardRoutes = require("./routes/card");
 const addRoutes = require("./routes/add");
@@ -13,16 +12,14 @@ const coursesRoutes = require("./routes/courses");
 const authRoutes = require("./routes/auth");
 const User = require("./models/user");
 const varMiddleware = require("./middleware/variables");
+const userMiddleware = require("./middleware/user");
 
 const MONGODB_URI = `mongodb+srv://dmitry:lwFrKrZxKYMV46hw@cluster0-gfhyj.mongodb.net/shop`;
-
 const app = express();
-
 const hbs = exphbs.create({
   defaultLayout: "main",
   extname: "hbs",
 });
-
 const store = new MongoStore({
   collection: "sessions",
   uri: MONGODB_URI,
@@ -43,6 +40,7 @@ app.use(
   })
 );
 app.use(varMiddleware);
+app.use(userMiddleware);
 
 app.use("/", homeRoutes);
 app.use("/add", addRoutes);

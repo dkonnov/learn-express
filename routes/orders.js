@@ -1,55 +1,57 @@
-const { Router } = require("express");
-const Order = require("../models/order");
-const auth = require("../middleware/auth");
-const router = Router();
+const {Router} = require('express')
+const Order = require('../models/order')
+const auth = require('../middleware/auth')
+const router = Router()
 
-router.get("/", auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const orders = await Order.find({ "user.userId": req.user._id }).populate(
-      "user.userId"
-    );
+    const orders = await Order.find({'user.userId': req.user._id})
+      .populate('user.userId')
 
-    res.render("orders", {
+    res.render('orders', {
       isOrder: true,
-      title: "Заказы",
-      orders: orders.map((o) => {
+      title: 'Заказы',
+      orders: orders.map(o => {
         return {
           ...o._doc,
           price: o.courses.reduce((total, c) => {
-            return (total += c.count * c.course.price);
-          }, 0),
-        };
-      }),
-    });
+            return total += c.count * c.course.price
+          }, 0)
+        }
+      })
+    })
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
-});
+})
 
-router.post("/", auth, async (req, res) => {
+
+router.post('/', auth, async (req, res) => {
   try {
-    const user = await req.user.populate("cart.items.courseId").execPopulate();
+    const user = await req.user
+      .populate('cart.items.courseId')
+      .execPopulate()
 
-    const courses = user.cart.items.map((i) => ({
+    const courses = user.cart.items.map(i => ({
       count: i.count,
-      course: { ...i.courseId._doc },
-    }));
+      course: {...i.courseId._doc}
+    }))
 
     const order = new Order({
       user: {
         name: req.user.name,
-        userId: req.user,
+        userId: req.user
       },
-      courses: courses,
-    });
+      courses: courses
+    })
 
-    await order.save();
-    await req.user.clearCart();
+    await order.save()
+    await req.user.clearCart()
 
-    res.redirect("/orders");
+    res.redirect('/orders')
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
-});
+})
 
-module.exports = router;
+module.exports = router
