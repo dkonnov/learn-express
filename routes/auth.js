@@ -22,8 +22,8 @@ router.post("/login", async (req, res) => {
     const candidate = await User.findOne({ email });
 
     if (candidate) {
-      const areSame = bcrypt.compare(password, candidate.password);
-
+      const areSame = await bcrypt.compare(password, candidate.password);
+      console.log(areSame);
       if (areSame) {
         req.session.user = candidate;
         req.session.isAuthenticated = true;
