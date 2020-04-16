@@ -6,7 +6,19 @@
         <li class="tab col s6"><a href="#register">Регистрация</a></li>
       </ul>
     </div>
+
+
+
+
     <div id="login" class="col s6 offset-s3">
+
+      {{#if loginError}}
+      <p class="alert">{{loginError}}</p>
+      {{/if}}
+      {{#if login}}
+      <p class="alert">{{login}}</p>
+      {{/if}}
+
       <h1>Войти в магазин</h1>
       <form action="/auth/login" method="POST">
         <div class="input-field">
@@ -25,6 +37,11 @@
       </form>
     </div>
     <div id="register" class="col s6 offset-s3">
+
+      {{#if registerError}}
+      <p class="alert">{{registerError}}</p>
+      {{/if}}
+
       <h1>Создать аккаунт</h1>
       <form action="/auth/register" method="POST">
         <div class="input-field">
@@ -50,7 +67,7 @@
           <label for="name">Ваше имя</label>
           <span class="helper-text" data-error="Введите имя"></span>
         </div>
-
+        <input type="hidden" name="_csrf" value="{{csrf}}">
         <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
       </form>
     </div>

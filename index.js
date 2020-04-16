@@ -5,13 +5,13 @@ const exphbs = require("express-handlebars");
 const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
 const csrf = require("csurf");
+const flash = require("connect-flash");
 const homeRoutes = require("./routes/home");
 const cardRoutes = require("./routes/card");
 const addRoutes = require("./routes/add");
 const ordersRoutes = require("./routes/orders");
 const coursesRoutes = require("./routes/courses");
 const authRoutes = require("./routes/auth");
-const User = require("./models/user");
 const varMiddleware = require("./middleware/variables");
 const userMiddleware = require("./middleware/user");
 
@@ -41,6 +41,7 @@ app.use(
   })
 );
 app.use(csrf());
+app.use(flash());
 app.use(varMiddleware);
 app.use(userMiddleware);
 
