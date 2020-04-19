@@ -118,11 +118,11 @@ router.get("/password/:token", async (req, res) => {
   }
 });
 
-router.post('/password', async (req, res) => {
+router.post("/password", async (req, res) => {
   try {
     const user = await User.findOne({
-      resetToken: req.params.token,
-      _id = req.body.userId,
+      _id: req.body.userId,
+      resetToken: req.body.token,
       resetTokenExp: { $gt: Date.now() },
     });
     if (user) {
@@ -130,16 +130,15 @@ router.post('/password', async (req, res) => {
       user.resetToken = undefined;
       user.resetTokenExp = undefined;
       await user.save();
-      res.redirect("/auth/login")
+      res.redirect("/auth/login");
     } else {
-      req.flash = 'Login error, time out'
+      req.flash = "Login error, time out";
       return res.redirect("/auth/login");
     }
   } catch (e) {
     console.log(e);
   }
-  
-})
+});
 
 router.post("/reset", (req, res) => {
   try {
