@@ -113,10 +113,33 @@ router.get("/password/:token", async (req, res) => {
       title: "Восстановить пароль?",
       error: req.flash("error"),
       userId: user._id.toString(),
-      token; req.params.token
+      token: req.params.token,
     });
   }
 });
+
+router.post('/password', async (req, res) => {
+  try {
+    const user = await User.findOne({
+      resetToken: req.params.token,
+      _id = req.body.userId,
+      resetTokenExp: { $gt: Date.now() },
+    });
+    if (user) {
+      user.password = await bcrypt.hash(req.body.password, 10);
+      user.resetToken = undefined;
+      user.resetTokenExp = undefined;
+      await user.save();
+      res.redirect("/auth/login")
+    } else {
+      req.flash = 'Login error, time out'
+      return res.redirect("/auth/login");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+  
+})
 
 router.post("/reset", (req, res) => {
   try {
