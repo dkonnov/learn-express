@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const compression = require("compression");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const MongoStore = require("connect-mongodb-session")(session);
@@ -36,6 +37,7 @@ app.set("view engine", "hbs");
 app.set("views", "views");
 
 app.use(helmet());
+app.use(compression());
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/images", express.static(path.join(__dirname, "images")));
